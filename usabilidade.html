@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle Financeiro</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilo.css">
+
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Fonte e cores principais */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fc;
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Barra lateral */
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            color: #5b3b92;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .menu-button {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            color: #333;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            margin-bottom: 8px;
+        }
+
+        .sidebar .menu-button i {
+            margin-right: 10px;
+            color: #5b3b92;
+        }
+
+        .sidebar .menu-button:hover {
+            background-color: #f0f0ff;
+        }
+
+        .sidebar .highlight {
+            color: #ff9800;
+        }
+
+        .new-transaction-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #5b3b92;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 12px rgba(91, 59, 146, 0.3);
+        }
+
+        .new-transaction-btn:hover {
+            background-color: #6a0dad;
+        }
+
+        /* Layout principal */
+        .main-container {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Conteúdo principal */
+        .content {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Coluna de resumo financeiro e gráfico */
+        .left-column, .right-column {
+            flex: 1;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Resumo financeiro */
+        .summary {
+            text-align: center;
+            color: #5b3b92;
+            margin-bottom: 20px;
+        }
+
+        .summary p {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .summary span {
+            font-size: 1rem;
+            color: #999;
+        }
+
+        /* Income and Expense Boxes */
+        .income-expense {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            gap: 20px;
+        }
+
+        .income, .expense {
+            flex: 1;
+            background: #f8f9fc;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .income {
+            color: #43A047;
+        }
+
+        .expense {
+            color: #E53935;
+        }
+
+        /* Cartões de mês */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            background-color: #f0f0ff;
+            transform: translateY(-3px);
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            color: #5b3b92;
+            margin-bottom: 5px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Gráfico */
+        .chart-container {
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Formulário para edição de dados */
+        .edit-form {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f0f2f5;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .edit-form h3 {
+            font-size: 1.2rem;
+            color: #5b3b92;
+            margin-bottom: 15px;
+        }
+
+        .edit-form label {
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .edit-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .edit-form button {
+            padding: 10px 15px;
+            color: white;
+            background-color: #5b3b92;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-form button:hover {
+            background-color: #6a0dad;
+        }
+
+        /* Botão de Exportação */
+        .export-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #5b3b92;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .export-button:hover {
+            background-color: #6a0dad;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Barra lateral -->
+<div class="sidebar">
+    <h2>Controle</h2>
+    <a href="#" class="new-transaction-btn">
+        <i class="fas fa-plus"></i> Novo
+    </a>
+    <br>
+    </a>
+    <a href="#" class="menu-button">
+        <i class="fas fa-home"></i> Dashboard
+    </a>
+    <a href="#" class="menu-button">
+        <i class="fas fa-university"></i> Contas
+    </a>
+    <a href="#" class="menu-button">
+        <i class="fas fa-exchange-alt"></i> Transações
+    </a>
+    <a href="#" class="menu-button">
+        <i class="fas fa-credit-card"></i> Cartões de crédito
+    </a>
+    <a href="#" class="menu-button">
+        <i class="fas fa-calendar-alt"></i> Planejamento
+    </a>
+    <a href="#" class="menu-button">
+        <i class="fas fa-chart-pie"></i> Relatórios
+    </a>
+    <a href="#" class="menu-button">
+        <i class="fas fa-cog"></i> Configurações
+    </a>
+</div>
+
+<!-- Conteúdo principal -->
+<div class="main-container">
+    <h1>Controle Financeiro</h1>
+
+    <div class="content">
+        <!-- Coluna de Resumo Financeiro e Gráfico -->
+        <div class="left-column">
+            <div class="summary">
+                <p>Janeiro</p>
+                <span>Saldo em contas</span>
+                <p>R$3.284,00</p>
+            </div>
+
+            <div class="income-expense">
+                <div class="income">
+                    <i class="fas fa-arrow-up"></i> Receitas
+                    <p>R$3.000,00</p>
+                </div>
+                <div class="expense">
+                    <i class="fas fa-arrow-down"></i> Despesas
+                    <p>R$1.436,00</p>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="expenseChart" width="400" height="200"></canvas>
+            </div>
+
+            <!-- Área de edição de informações -->
+            <div class="edit-form">
+                <h3>Modificar Informações</h3>
+                <label for="editMonth">Mês:</label>
+                <input type="text" id="editMonth" placeholder="Ex: Janeiro">
+                
+                <label for="editIncome">Receita:</label>
+                <input type="number" id="editIncome" placeholder="Digite a nova receita">
+                
+                <label for="editExpense">Despesas:</label>
+                <input type="number" id="editExpense" placeholder="Digite as novas despesas">
+                
+                <button onclick="updateData()">Salvar Alterações</button>
+            </div>
+
+            <!-- Botão de exportação -->
+            <button class="export-button" onclick="exportToPDF()">Exportar PDF</button>
+        </div>
+
+        <!-- Coluna de Cartões de Resumo Mensal -->
+        <div class="right-column">
+            <h2 style="text-align: center; color: #5b3b92; margin-bottom: 20px;">Resumo Mensal</h2>
+            <div class="card-container" id="cardContainer">
+                <!-- Cartões serão adicionados dinamicamente -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Dados dos meses para os cartões
+    const monthlyData = [
+        { month: "Janeiro", income: 3000, expense: 1436 },
+        { month: "Fevereiro", income: 3500, expense: 1500 },
+        { month: "Março", income: 4000, expense: 1800 },
+        { month: "Abril", income: 4500, expense: 2000 },
+        { month: "Maio", income: 5000, expense: 2300 },
+        { month: "Junho", income: 5500, expense: 2500 },
+        { month: "Julho", income: 6000, expense: 2700 },
+        { month: "Agosto", income: 6200, expense: 2800 },
+        { month: "Setembro", income: 6300, expense: 2900 },
+        { month: "Outubro", income: 6400, expense: 3000 },
+        { month: "Novembro", income: 6500, expense: 3100 },
+        { month: "Dezembro", income: 7000, expense: 3200 }
+    ];
+
+    function createMonthlyCards() {
+        const cardContainer = document.getElementById("cardContainer");
+        monthlyData.forEach(data => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            const balance = data.income - data.expense;
+            card.innerHTML = `
+                <h3>${data.month}</h3>
+                <p>Receita: R$${data.income.toFixed(2)}</p>
+                <p>Despesas: R$${data.expense.toFixed(2)}</p>
+                <p><strong>Saldo: R$${balance.toFixed(2)}</strong></p>
+            `;
+            cardContainer.appendChild(card);
+        });
+    }
+
+    createMonthlyCards();
+
+    // Configuração do gráfico de despesas por categoria
+    const ctx = document.getElementById('expenseChart').getContext('2d');
+    const expenseChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Educação', 'Casa', 'Alimentação', 'Outros'],
+            datasets: [{
+                data: [650, 750, 820, 290],
+                backgroundColor: ['#FB8C00', '#43A047', '#5b3b92', '#9E9E9E'],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            const dataset = tooltipItem.dataset;
+                            const currentValue = dataset.data[tooltipItem.dataIndex];
+                            const total = dataset.data.reduce((acc, value) => acc + value, 0);
+                            const percentage = ((currentValue / total) * 100).toFixed(1);
+                            return `${tooltipItem.label}: R$${currentValue} (${percentage}%)`;
+                        }
+                    }
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+    // Função para atualizar dados a partir do formulário de edição
+    function updateData() {
+        const month = document.getElementById("editMonth").value;
+        const income = parseFloat(document.getElementById("editIncome").value);
+        const expense = parseFloat(document.getElementById("editExpense").value);
+
+        if (month && !isNaN(income) && !isNaN(expense)) {
+            const updatedData = monthlyData.find(data => data.month === month);
+            if (updatedData) {
+                updatedData.income = income;
+                updatedData.expense = expense;
+                alert("Dados atualizados com sucesso!");
+                location.reload();
+            } else {
+                alert("Mês não encontrado. Verifique e tente novamente.");
+            }
+        } else {
+            alert("Por favor, preencha todos os campos corretamente.");
+        }
+    }
+
+    // Função de exportação para PDF com formatação estilizada
+    function exportToPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Título do PDF
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(18);
+        doc.setTextColor(91, 59, 146);
+        doc.text("Relatório Financeiro Mensal", 20, 20);
+
+        // Dados dos meses
+        let yPosition = 40;
+        monthlyData.forEach(data => {
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(14);
+            doc.text(data.month, 20, yPosition);
+            yPosition += 8;
+
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Receita: R$${data.income.toFixed(2)}`, 20, yPosition);
+            yPosition += 6;
+            doc.text(`Despesas: R$${data.expense.toFixed(2)}`, 20, yPosition);
+            yPosition += 6;
+            const balance = data.income - data.expense;
+            doc.text(`Saldo: R$${balance.toFixed(2)}`, 20, yPosition);
+            yPosition += 12;  // Espaçamento entre meses
+        });
+
+        doc.save("Relatorio_Financeiro.pdf");
+    }
+</script>
+
+
+</body>
+
+</html>

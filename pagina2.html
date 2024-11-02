@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle Financeiro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+   
+    <style>
+         /* Cabeçalho de Navegação */
+         .navbar {
+            background-color: #4b0082; /* Fundo do cabeçalho de navegação em roxo */
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
+        }
+
+        .navbar .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #f9b234; /* Cor laranja para o texto do logo, combinando com o botão principal */
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar .nav-links a {
+            color: #fff; /* Cor dos links de navegação */
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 500;
+            transition: color 0.3s; /* Transição suave ao passar o mouse */
+        }
+
+        .navbar .nav-links a:hover {
+            color: #ffcf65; /* Cor de destaque ao passar o mouse */
+        }
+
+        .navbar .buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar .download-btn, .navbar .enter-btn {
+            padding: 8px 18px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar .download-btn {
+            background-color: #343a40; /* Fundo do botão "Baixar agora!" */
+            color: #fff;
+        }
+
+        .navbar .enter-btn {
+            background-color: #f9b234; /* Fundo do botão "Entrar" em laranja */
+            color: #fff;
+        }
+
+        .navbar .download-btn:hover {
+            background-color: #fff;
+            color: #343a40; /* Mudança de cor ao passar o mouse */
+        }
+
+        .navbar .enter-btn:hover {
+            background-color: #7c65ff; /* Mudança de cor ao passar o mouse */
+        }
+
+        /* Estilização Geral */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            background-color: #f8f8fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #4b0082; /* Fundo do cabeçalho principal */
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin: 0 0 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            margin: 0 0 20px;
+        }
+
+        .cta-button {
+            background-color: #f9b234; /* Fundo do botão principal */
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #ffcf65; /* Mudança de cor ao passar o mouse */
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            background-color: #f8f8fc;
+            margin: 0;
+            padding: 0;
+        }
+        .app-preview-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 90px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.app-preview img {
+    width: 400px;
+    height: auto;
+}
+
+.app-preview-text {
+    max-width: 400px;
+    text-align: left;
+}
+
+.store-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+
+        .header {
+            background-color: #4b0082;
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin: 0 0 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            margin: 0 0 20px;
+        }
+
+        .cta-button {
+            background-color: #f9b234;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #ffcf65;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .features .feature {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .features .feature:hover {
+            transform: scale(1.05);
+        }
+
+        .features .feature img {
+            width: 80px;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .app-preview {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #e6e0f7;
+            color: #333;
+        }
+
+        .app-preview img {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .store-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .store-buttons button {
+            background-color: #ECE8FB    ;
+            border: 2px solid #4b0082;
+            padding: 10px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .store-buttons button:hover {
+            background-color: #4b0082;
+            color: #fff;
+        }
+        .simulation-section {
+            flex: 1;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 350px;
+        }
+
+        .simulation-section h2 {
+            font-size: 1.5em;
+            color: #4b0082;
+            margin-bottom: 10px;
+        }
+
+        .simulation-section p {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .faq-section {
+            padding: 60px 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .faq-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .faq-section p {
+            font-size: 1.1em;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: nowrap;
+            justify-content: center;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .ag-courses_item {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            padding: 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-align: center;
+            flex: 0 0 auto;
+        }
+
+        .ag-courses_item:hover {
+            background-color: #e6e0f7;
+            transform: scale(1.05);
+        }
+
+        .ag-courses_item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .ag-courses-item_title {
+            font-weight: bold;
+            color: #4b0082;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .ag-courses-item_date-box {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .footer {
+            background-color: #1a103d;
+            color: #b8b8d4;
+            display: flex;
+            justify-content: space-around;
+            padding: 40px;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer h3 {
+            color: #ffffff;
+            font-size: 1.1em;
+        }
+
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer a {
+            color: #b8b8d4;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #ffffff;
+        }
+
+        .download-buttons img {
+            width: 150px;
+            margin-bottom: 15px;
+        }
+
+        .whatsapp-button {
+            background-color: #4b0082;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            max-width: 200px;
+            margin-top: 15px;
+        }
+
+        .social-media {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-media a {
+            color: #b8b8d4;
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+
+        .social-media a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px;
+            background-color: #1a103d;
+            color: #b8b8d4;
+            font-size: 0.8em;
+        }
+    </style>
+    
+    
+</head>
+<body>
+    
+    <header class="header">
+        <h1>Controle suas finanças em um só lugar</h1>
+        <p>Cuidar do seu dinheiro pode ser simples. Com o nosso gerenciador, você organiza e planeja sua vida financeira em um único lugar.</p>
+        <button class="cta-button">Teste grátis</button>
+        
+    </header>
+
+        <!-- Cabeçalho de Navegação -->
+        <nav class="navbar">
+            <div class="logo">Minhas Economias</div>
+            <div class="nav-links">
+                <a href="#">Como funciona</a>
+                <a href="#">Investimentos</a>
+                <a href="#">Educação financeira</a>
+                <a href="#">Blog</a>
+            </div>
+            <div class="buttons">
+                <a href="#" class="download-btn">Baixar agora!</a>
+                
+
+                <!-- Botão de Entrar com redirecionamento -->
+        <a class="enter-btn" onclick="redirecionarLogin()">Entrar</a>
+            </div>
+        </nav>
+
+    
+        
+        <script>
+            function redirecionarLogin() {
+                // Redireciona para a página de login
+                window.location.href = "login_usuario.html"; // Altere para o caminho da sua página de login
+            }
+        </script>
+
+    <section class="features">
+        <div class="feature">
+            <h2>Conecte suas contas e cartões</h2>
+            <p>Saiba exatamente para onde seu dinheiro está indo com nossa integração automática.</p>
+            <img src="tranferir.svg" alt="Imagem ilustrativa de conexão de contas e cartões">
+        </div>
+        <div class="feature">
+            <h2>Planeje seus gastos e crie objetivos</h2>
+            <p>Faça orçamentos mensais, mantenha seus gastos sob controle para juntar dinheiro e alcançar seus sonhos.</p>
+            <img src="projeto,crie.svg" alt="Imagem ilustrativa de planejamento financeiro">
+        </div>
+    </section>
+ 
+    <section class="app-preview">
+        <div class="app-preview-content">
+            <img src="meio_do_site.svg" alt="Imagem do aplicativo financeiro">
+            <div class="app-preview-text">
+                <p><strong>Tome o controle da sua vida financeira</strong></p>
+                <p>Simplifique a maneira como você gerencia seu dinheiro e planeje seu futuro financeiro. Com nossa plataforma, você terá acesso a ferramentas poderosas para organizar seu orçamento, acompanhar seus gastos e definir metas que realmente fazem a diferença. Transforme seus objetivos em realidade com mais segurança e controle.</p>
+                <div class="store-buttons">
+                    <button class="google-play">Disponível no Google Play</button>
+                    <button class="app-store">Baixar na App Store</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="chart-section">
+        <h2>Análise Financeira</h2>
+        <div id="chart"></div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Simulador de Investimento</title>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            body {
+                font-family: 'Montserrat', sans-serif;
+                background-color: #f8f8fc;
+                color: #333;
+                text-align: center;
+                padding: 20px;
+            }
+
+            
+            .simulator-container {
+                max-width: 600px;
+                margin: 0 auto;
+                background: #ffffff;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                color: #4b0082;
+            }
+            .simulator-title {
+                font-size: 1.8em;
+                font-weight: bold;
+                color: #4b0082;
+                margin-bottom: 10px;
+            }
+            .simulator-subtitle {
+                font-size: 1em;
+                color: #666;
+                margin-bottom: 20px;
+            }
+            
+            .input-group {
+                margin: 15px 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+            .input-group label {
+                font-size: 1.1em;
+                color: #4b0082;
+            }
+            .input-group input[type="number"] {
+                font-size: 1.3em;
+                width: 100px;
+                border: none;
+                border-bottom: 2px solid #4b0082;
+                text-align: center;
+                color: #4b0082;
+                outline: none;
+            }
+            .slider {
+                width: 100%;
+                margin: 10px 0;
+                accent-color: #4b0082;
+            }
+            .results-container {
+                display: flex;
+                justify-content: space-around;
+                margin-top: 20px;
+            }
+            .result-box {
+                text-align: center;
+                color: #4b0082;
+            }
+            .result-box h3 {
+                font-size: 1.8em;
+                color: #4b0082;
+                margin: 0;
+            }
+            .result-box label {
+                font-size: 1em;
+                color: #666;
+            }
+            .simulate-button {
+                background-color: #f9b234;
+                color: #fff;
+                padding: 12px 24px;
+                font-size: 1em;
+                font-weight: bold;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 20px;
+                transition: background-color 0.3s;
+            }
+            .simulate-button:hover {
+                background-color: #ffcf65;
+            }
+            
+        </style>
+    </head>
+    <body>
+    
+ <title>Simulador de Investimento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f8fc;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .simulator-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            color: #4b0082;
+        }
+        .simulator-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #4b0082;
+            margin-bottom: 10px;
+        }
+        .simulator-subtitle {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .input-group label {
+            font-size: 1.1em;
+            color: #4b0082;
+        }
+        .input-group input[type="number"] {
+            font-size: 1.3em;
+            width: 100px;
+            border: none;
+            border-bottom: 2px solid #4b0082;
+            text-align: center;
+            color: #4b0082;
+            outline: none;
+        }
+        .slider {
+            width: 100%;
+            margin: 10px 0;
+            accent-color: #4b0082;
+        }
+        .results-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .result-box {
+            text-align: center;
+            color: #4b0082;
+        }
+        .result-box h3 {
+            font-size: 1.8em;
+            color: #4b0082;
+            margin: 0;
+        }
+        .result-box label {
+            font-size: 1em;
+            color: #666;
+        }
+        .simulate-button {
+            background-color: #f9b234;
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .simulate-button:hover {
+            background-color: #ffcf65;
+        }
+    </style>
+</head>
+<body>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Simulador de Investimento</title>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            body {
+                font-family: 'Montserrat', sans-serif;
+                background-color: #f8f8fc;
+                color: #333;
+                text-align: center;
+                padding: 20px;
+            }
+            .simulator-container {
+                max-width: 600px;
+                margin: 0 auto;
+                background: #ffffff;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+                color: #4b0082;
+            }
+            .simulator-title {
+                font-size: 2em;
+                font-weight: bold;
+                color: #4b0082;
+                margin-bottom: 15px;
+                border-bottom: 2px solid #f9b234;
+                padding-bottom: 5px;
+            }
+            .simulator-subtitle {
+                font-size: 1em;
+                color: #666;
+                margin-bottom: 20px;
+            }
+            .input-group {
+                margin: 20px 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+            .input-group label {
+                font-size: 1.1em;
+                color: #4b0082;
+                display: flex;
+                align-items: center;
+            }
+            .input-group input[type="number"] {
+                font-size: 1.3em;
+                width: 100px;
+                border: none;
+                border-bottom: 2px solid #4b0082;
+                text-align: center;
+                color: #4b0082;
+                outline: none;
+            }
+            .slider {
+                width: 100%;
+                margin: 10px 0;
+                accent-color: #4b0082;
+            }
+            .results-container {
+                display: flex;
+                justify-content: space-around;
+                margin-top: 20px;
+            }
+            .result-box {
+                background-color: #f8f8fc;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                color: #4b0082;
+                transition: transform 0.3s ease;
+            }
+            .result-box:hover {
+                transform: scale(1.05);
+            }
+            .result-box h3 {
+                font-size: 1.8em;
+                color: #4b0082;
+                margin: 0;
+            }
+            .result-box label {
+                font-size: 1em;
+                color: #666;
+            }
+            .simulate-button {
+                background-color: #f9b234;
+                color: #fff;
+                padding: 12px 24px;
+                font-size: 1em;
+                font-weight: bold;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 20px;
+                transition: background-color 0.3s, box-shadow 0.3s;
+            }
+            .simulate-button:hover {
+                background-color: #ffcf65;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            }
+        </style>
+    </head>
+    <body>
+    
+    <div class="simulator-container">
+        <h2 class="simulator-title">SIMULE SEU INVESTIMENTO</h2>
+        <p class="simulator-subtitle">Compare e confira as vantagens de investir seu dinheiro no Tesouro Direto.</p>
+    
+        <div class="input-group">
+            <label>Eu tenho R$</label>
+            <input type="number" id="investmentAmount" value="20000" />
+        </div>
+    
+        <input type="range" id="amountSlider" class="slider" min="1000" max="50000" value="20000" step="1000" 
+            oninput="document.getElementById('investmentAmount').value = this.value" />
+    
+        <div class="input-group">
+            <label>Para aplicar durante</label>
+            <input type="number" id="investmentYears" value="20" /> <label>anos</label>
+        </div>
+    
+        <input type="range" id="yearsSlider" class="slider" min="1" max="30" value="20" step="1" 
+            oninput="document.getElementById('investmentYears').value = this.value" />
+    
+        <button class="simulate-button" onclick="simulate()">Simule mais opções</button>
+    
+        <div class="results-container">
+            <div class="result-box">
+                <h3 id="savingsResult">R$70.101,21</h3>
+                <label>POUPANÇA</label>
+            </div>
+            <div class="result-box">
+                <h3 id="investmentResult">R$118.669,41</h3>
+                <label>TESOURO IPCA+ 2045</label>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function simulate() {
+            const investment = parseFloat(document.getElementById('investmentAmount').value);
+            const years = parseInt(document.getElementById('investmentYears').value);
+            
+            // Simulação fictícia para a Poupança (3% ao ano)
+            const savingsTotal = investment * Math.pow(1 + 0.03, years);
+            
+            // Simulação fictícia para o Tesouro IPCA+ (6% ao ano)
+            const investmentTotal = investment * Math.pow(1 + 0.06, years);
+            
+            document.getElementById('savingsResult').innerText = "R$" + savingsTotal.toFixed(2).replace(".", ",");
+            document.getElementById('investmentResult').innerText = "R$" + investmentTotal.toFixed(2).replace(".", ",");
+        }
+    </script>
+    
+
+
+
+</script>
+
+    
+    
+    
+
+    <section class="faq-section">
+        <h2>Encontre respostas para as suas perguntas</h2>
+        <p>Organizamos conteúdos de qualidade para que você tenha acesso a todas as suas possíveis dúvidas sobre finanças pessoais, cartões de crédito, empréstimos e muito mais.</p>
+        
+        <div class="card-container">
+            <!-- Cards -->
+            <div class="ag-courses_item">
+                <img src="cartaocredito1.jpg" alt="Cartão de Crédito">
+                <div class="ag-courses-item_title">Cartão de Crédito</div>
+                <div class="ag-courses-item_date-box">Pix com cartão de crédito: saiba como fazer!</div>
+            </div>
+            <div class="ag-courses_item">
+                <img src="dinheiro.ppj.jpg" alt="Ganhar dinheiro">
+                <div class="ag-courses-item_title">Ganhar dinheiro</div>
+                <div class="ag-courses-item_date-box">Como ganhar dinheiro na internet: 21 formas comprovadas</div>
+            </div>
+            <div class="ag-courses_item">
+                <img src="milhas.jpg" alt="Milhas">
+                <div class="ag-courses-item_title">Milhas</div>
+                <div class="ag-courses-item_date-box">Como comprar pontos Esfera: veja como acumular mais no programa do...</div>
+            </div>
+            <div class="ag-courses_item">
+                <img src="presente.jpg" alt="Datas">
+                <div class="ag-courses-item_title">Datas</div>
+                <div class="ag-courses-item_date-box">Feriados e datas comemorativas de novembro: veja as principais</div>
+            </div>
+            <div class="ag-courses_item">
+                <img src="ideias.jpg" alt="Dicas">
+                <div class="ag-courses-item_title">Dicas</div>
+                <div class="ag-courses-item_date-box">Quando é o Enem 2024? Confira as datas exatas!</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="download-buttons">
+            <img src="google.png" alt="Disponível no Google Play">
+            <img src="iphone2.png" alt="Baixar na App Store">
+        </div>
+        <div class="footer-column">
+            <h3>Produtos financeiros</h3>
+            <ul>
+                <li><a href="#">Cartão de crédito</a></li>
+                <li><a href="#">Empréstimo</a></li>
+                <li><a href="#">Calculadoras</a></li>
+                <li><a href="#">Contas digitais</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Institucional</h3>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Sobre nós</a></li>
+                <li><a href="#">Trabalhe conosco</a></li>
+                <li><a href="#">Termos e Privacidade</a></li>
+                <br>
+                <li><a href="#">Termos Marketplace</a></li>
+                <li><a href="#">Seja Parceiro Mobills</a></li>
+                <li><a href="#">Central de Denúncias</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Ajuda</h3>
+            <ul>
+                <li><a href="#">Ouvidoria</a></li>
+                <li><a href="#">Fale conosco</a></li>
+            </ul>
+                <li><a href="#">Sobre nós</a></li>
+                <br>
+            <div class="whatsapp-button">Atendimento WhatsApp: 31 988875829</div>
+        </div>
+    </footer>
+
+    <div class="footer-bottom">
+        Esse site foi feito com 💜 por nosso time! :3
+    </div>
+    
+</body>
+</html>
